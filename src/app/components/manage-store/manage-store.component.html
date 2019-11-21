@@ -1,0 +1,85 @@
+<span class="help is-info" *ngIf="isLoading">
+  Loading...
+  <mat-spinner style="justify-content: center; align-content: center; align-self: center;text-align: center;">
+  </mat-spinner>
+</span>
+<span class="help is-error" *ngIf="errorMessage">{{ errorMessage }}</span>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title style="justify-content: center;">
+      Stores
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-table [dataSource]="stores" class="mat-elevation-z8" *ngIf="!isLoading && !errorMessage">
+    <ng-container matColumnDef="storeName">
+      <mat-header-cell *matHeaderCellDef>Store Name</mat-header-cell>
+      <mat-cell *matCellDef="let element" style="justify-content: right;">
+        {{ element.storeName }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell *matCellDef="let element" style="justify-content: right;">
+        {{ element.email }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="websiteURL">
+      <mat-header-cell *matHeaderCellDef>Website</mat-header-cell>
+      <mat-cell *matCellDef="let element" style="justify-content: right;">
+        <a href="{{element.websiteURL}}" target="_blank">
+          Click Here
+        </a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="phoneNumber">
+      <mat-header-cell *matHeaderCellDef>Phone Number</mat-header-cell>
+      <mat-cell *matCellDef="let element" style="justify-content: right;">
+        {{ element.phoneNumber}}
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-expansion-panel>
+<div class="grid-x grid-padding-x align-spaced">
+  <form class="mobile-product-filters vertical menu" [formGroup]="storeForm" (ngSubmit)="onSubmit()">
+    <p class="form-group">
+      <mat-form-field appearance="legacy">
+        <mat-label>Store Name</mat-label>
+        <input type="text" class="form-control" required matInput placeholder="Eg. EggxelnetPaint"
+          formControlName="storeName" name="storeName" #spy minlength="6" maxlength="100">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Write the full product name</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Store Email</mat-label>
+        <input type="text" matInput placeholder="Eg. 20" formControlName="email" name="email" required minlength="6"
+          maxlength="100" #spy>
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Write the number of colours whithin the range</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Store Phone Number</mat-label>
+        <input type="number" class="form-control" id="phoneNumber" required matInput placeholder="Eg. EggxelnetPaint"
+          formControlName="phoneNumber" name="phoneNumber" #spy value="1" min="1" max="200">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Assign a grade to the product</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Store Website</mat-label>
+        <input type="text" class="form-control" required matInput placeholder="Eg. EggxelnetPaint"
+          formControlName="websiteURL" name="websiteURL" #spy minlength="6" maxlength="100">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Choose Consistency</mat-hint>
+      </mat-form-field>
+    </p>
+    <button type="button" class="button is-primary" (click)="addStore(storeForm.value); storeForm.value=''"
+      [class.is-loading]="isLoading" [disabled]="!storeForm.valid">Add Store</button>
+  </form>
+</div>

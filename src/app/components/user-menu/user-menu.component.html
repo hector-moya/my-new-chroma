@@ -1,0 +1,32 @@
+<!-- Mobile Hamburger Menu Only Visible for Small Viewport -->
+
+  <!-- Mobile Off-Canvas-top Main Menu -->
+  <nav [offcanvas]="isOffcanvas" class="off-canvas position-top" id="offCanvasMenuTop" aria-hidden="true"
+    #offcanvasTop="bs-offcanvas">
+    <ul class="menu">
+      <li>
+        <a routerLink="/manage-store" (click)="offcanvasTop.hide()">
+          Manage Store
+        </a>
+      </li>
+      <li>
+        <a routerLink="/new-user" (click)="offcanvasLeft.hide()">
+          Add New User
+        </a>
+      </li>
+      <li>
+        <a routerLink="/user-info" (click)="offcanvasTop.hide()">
+          User Info
+        </a>
+      </li>
+      <li>
+        <a routerLink="/manage-product" (click)="offcanvasTop.hide()">
+          Manage Product
+        </a>
+      </li>
+    </ul>
+    <button class="close-button" aria-label="Close Menu" aria-controls="offCanvasMenuTop" type="button"
+      (click)="offcanvasTop.hide()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </nav>

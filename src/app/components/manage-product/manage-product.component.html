@@ -1,0 +1,87 @@
+<div class="grid-x grid-padding-x align-spaced">
+  <form class="mobile-product-filters vertical menu"
+    [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <p class="form-group">
+      <mat-form-field appearance="legacy">
+        <mat-label>Product Name</mat-label>
+        <input type="text" class="form-control" id="productName" required matInput placeholder="Eg. EggxelnetPaint"
+          formControlName="productName" name="productName" #spy minlength="6" maxlength="100">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Write the full product name</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Colour Range</mat-label>
+        <input type="number" matInput placeholder="Eg. 20" formControlName="colourRange" name="colourRange" required
+          value="1" min="1" max="200" #spy>
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Write the number of colours whithin the range</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Product Grade</mat-label>
+        <mat-select placeholder="Select a paint grade" formControlName="gradeID">
+          <mat-option (click)="show()" [value]="grade.gradeID" name="gradeID" *ngFor="let grade of grades" #spy>
+            {{ grade.gradeName }}
+          </mat-option>
+        </mat-select>
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Assign a grade to the product</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Paint Consistency</mat-label>
+        <mat-select formControlName="consistencyID">
+          <mat-option name="consistencyID" [value]="consistency.consistencyID" *ngFor="let consistency of consistencies"
+            #spy>
+            {{ consistency.consistencyName }}
+          </mat-option>
+        </mat-select>
+
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Choose Consistency</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Product Description</mat-label>
+        <input type="text" matInput placeholder="Eg. This acrylic paint is lightfast ASTM certify... "
+          formControlName="productDescription" name="productDescription" required minlength="6" maxlength="255" #spy>
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Copy and paste official product description</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Manufacturer</mat-label>
+        <mat-select formControlName="manufacturerID">
+          <mat-option name="manufacturerID" [value]="manufacturer.manufacturerID"
+            *ngFor="let manufacturer of manufacturers" #spy>
+            {{ manufacturer.manufacturerName }}
+          </mat-option>
+        </mat-select>
+
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Choose Manufacturer</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Product Medium</mat-label>
+        <mat-select placeholder="Select a paint medium" formControlName="mediumID">
+          <mat-option [value]="medium.mediumID" name="mediumID" *ngFor="let medium of mediums" #spy>
+            {{ medium.mediumName }}
+          </mat-option>
+        </mat-select>
+
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Choose medium</mat-hint>
+      </mat-form-field>
+    </p>
+    <button type="button" class="button is-primary" (click)="addProduct(productForm.value); productForm.value=''"
+      [class.is-loading]="isLoading" [disabled]="!productForm.valid">Add Product</button>
+  </form>
+</div>

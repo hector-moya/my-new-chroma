@@ -1,0 +1,128 @@
+<div>
+  <div>
+    <div>
+      <header>
+        <mat-toolbar color="primary" class="expanded-toolbar">
+          <mat-toolbar-row style="justify-content: space-between;">
+            <span>
+
+              <!-- Mobile Hamburger Menu Only Visible for Small Viewport -->
+              <button class="hamburger" [attr.aria-expanded]="!isOffcanvas" mat-button aria-controls="offCanvasMenuLeft"
+                (click)="offcanvasLeft.show()">
+                <mat-icon>menu</mat-icon>
+              </button>
+
+            </span>
+
+            <!--Welcome-->
+
+            <span>
+              <button mat-button *ngIf="!isAuthenticated" routerLink="/login"> CHROMA </button>
+              <button mat-button *ngIf="isAuthenticated" (click)="logout()"> Logout </button>
+            </span>
+
+            <span>
+              <!-- Mobile Hamburger Menu Only Visible for Authenticated users -->
+              <button class="hamburger" [attr.aria-expanded]="!isOffcanvas" mat-button *ngIf="isAuthenticated"
+                aria-controls="offCanvasMenuTop" (click)="offcanvasTop.show()">
+
+                <mat-icon>dialpad</mat-icon>
+
+              </button>
+            </span>
+          </mat-toolbar-row>
+        </mat-toolbar>
+
+        <!-- Mobile Off-Canvas-left Main Menu -->
+        <nav [offcanvas]="isOffcanvas" class="off-canvas position-left" id="offCanvasMenuLeft" aria-hidden="true"
+          #offcanvasLeft="bs-offcanvas">
+          <ul class="menu vertical">
+            <app-profile-card></app-profile-card>
+            <!--<li>
+              <a routerLink="/demo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                (click)="offcanvasLeft.hide()">
+                Demo Page
+              </a>
+            </li>
+            <li>
+              <a routerLink="/" (click)="offcanvasLeft.hide()">
+                Nav Link 2
+              </a>
+            </li>
+            <li>
+              <a routerLink="/calculator" (click)="offcanvasLeft.hide()">
+                Calculator
+              </a>
+            </li>-->
+            <li>
+              <a routerLink="/hero-home" (click)="offcanvasLeft.hide()">
+                Home
+              </a>
+            </li>
+            <li>
+              <a routerLink="/find-product" (click)="offcanvasLeft.hide()">
+                Find Your Product
+              </a>
+            </li>
+            <li>
+              <a routerLink="/product-characteristics" (click)="offcanvasLeft.hide()">
+                Product Characteristics
+              </a>
+            </li>
+            <li>
+              <a routerLink="/about-us" (click)="offcanvasLeft.hide()">
+                About Us
+              </a>
+            </li>
+            <li>
+              <a routerLink="/contact-us" (click)="offcanvasLeft.hide()">
+                Contact Us
+              </a>
+            </li>
+            <li>
+              <a routerLink="/search" (click)="offcanvasLeft.hide()">
+                Search
+              </a>
+            </li>
+          </ul>
+          <button class="close-button" aria-label="Close Menu" aria-controls="offCanvasMenuLeft" type="button"
+            (click)="offcanvasLeft.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+        </nav>
+
+        <!-- Mobile Off-Canvas-top Main Menu -->
+        <nav [offcanvas]="isOffcanvas" class="off-canvas position-top" style="height: 5rem;" id="offCanvasMenuTop" aria-hidden="true"
+          #offcanvasTop="bs-offcanvas">
+          <ul class="menu">
+            <li>
+              <a routerLink="/manage-store" (click)="offcanvasTop.hide()">
+                Manage Store
+              </a>
+            </li>
+            <!--<li>
+              <a routerLink="/new-user" (click)="offcanvasTop.hide()">
+                Add New User
+              </a>
+            </li>-->
+            <li>
+              <a routerLink="/user-info" (click)="offcanvasTop.hide()">
+                User Info
+              </a>
+            </li>
+            <li>
+              <a routerLink="/manage-product" (click)="offcanvasTop.hide()">
+                Manage Product
+              </a>
+            </li>
+          </ul>
+          <button class="close-button" aria-label="Close Menu" aria-controls="offCanvasMenuTop" type="button"
+            (click)="offcanvasTop.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+        </nav>
+
+      </header>
+    </div><!-- / cell -->
+  </div><!-- /grid -->
+</div><!-- /grid-container-fluid -->

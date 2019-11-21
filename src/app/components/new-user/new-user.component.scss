@@ -1,0 +1,33 @@
+@import '~styles.scss';
+
+$translucent-form-overlay-max-width: 500px;
+
+.translucent-form-overlay {
+  //max-width: $translucent-form-overlay-max-width;
+  background-color: $white;
+  padding: 20px;
+  color: lighten($light-gray, 25%);
+  margin: 20px 0px 20px 0px;
+  border-radius: 8px;
+
+  h3 {
+    color: $title-color;
+  } 
+  
+  label {
+    color: lighten($light-gray, 25%);
+  }
+  input, select {
+    background-color: $light-gray;
+    color: $dark-gray;
+    border-radius: 8px;
+  }
+  input::placeholder {
+    background-color: inherit;
+    color: $dark-gray;
+    
+  }
+  .terms {
+    color: $title-color;
+  }
+}

@@ -1,0 +1,202 @@
+<!-- Find product  -->
+<span class="help is-info" *ngIf="isLoading"
+  style="justify-content: center; align-content: center; align-self: center;text-align: center;">
+  Loading...
+  <mat-spinner
+    style="justify-content: center; align-content: center; align-self: center;text-align: center;">
+  </mat-spinner>
+</span>
+<span class="help is-error" *ngIf="errorMessage">{{ errorMessage }}</span>
+<div *ngIf="!isLoading && !errorMessage"
+  style="justify-content: center; align-content: center; align-self: center;text-align: center;">
+  <div>
+    <!-- Mobile view -->
+    <a href="#">
+      <h2 class="text-center">Find your product</h2>
+    </a>
+
+    <mat-accordion [formGroup]="searchProduct">
+
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Product Grade
+          </mat-panel-title>
+          <mat-panel-description>
+            Select a paint grade
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        
+        <mat-form-field appearance="legacy">
+          <mat-select placeholder="Select a paint grade" formControlName="gradeID">
+
+            <mat-option [value]="grade.gradeID" name="gradeID" *ngFor="let grade of grades" (click)="showGradeID()"
+              #spy>
+              {{ grade.gradeName }}
+            </mat-option>
+
+          </mat-select>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>Assign a grade to the product</mat-hint>
+        </mat-form-field>
+      </mat-expansion-panel>
+
+
+
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Product Medium
+          </mat-panel-title>
+          <mat-panel-description>
+            Select a paint medium
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="legacy">
+          <mat-select placeholder="Select a paint medium" formControlName="mediumID">
+            <mat-option [value]="medium.mediumID" name="mediumID" *ngFor="let medium of mediums"
+              (click)="showMediumID()" #spy>
+              {{ medium.mediumName }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>Choose medium</mat-hint>
+        </mat-form-field>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Product Name
+          </mat-panel-title>
+          <mat-panel-description>
+            Select a product
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="legacy">
+          <mat-select placeholder="Select a product" formControlName="productID">
+            <mat-option [value]="product.productID" name="productID"
+              *ngFor="let product of filterGradeById(this.gradeID.value)" (click)="showProductID()" #spy>
+              {{ product.productName }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>Choose medium</mat-hint>
+        </mat-form-field>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title style="justify-content: center;">
+            Details
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <!-- <a href="#" class="clear-all" id="price-clear-all">Clear All</a> -->
+        <div class="text-justify box" *ngFor="let product of filterProductById(this.productID.value)">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="justify-content: center;">
+                Product Name
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5 class="text-center secondary">{{ product.productName }}</h5>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="justify-content: center;">
+                Colour Range
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5 class="text-center">{{ product.colourRange }}</h5>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="justify-content: center;">
+                Consistency
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5 class="text-center">{{ product.consistencyID }}</h5>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="justify-content: center;">
+                Description
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5 class="text-center">{{ product.productDescription }}</h5>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="justify-content: center;">
+                Manufacturer
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5 class="text-center">{{ product.manufacturerID }}</h5>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="justify-content: center;">
+                Grade
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5 class="text-center" *ngFor="let grade of filterGrade(this.gradeID.value)">
+              {{ grade.gradeName }}</h5>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="justify-content: center;">
+                Medium
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5 class="text-center" *ngFor="let medium of filterMediumById(this.mediumID.value)">
+              {{ medium.mediumName }}</h5>
+          </mat-expansion-panel>
+        </div>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title style="justify-content: center;">
+            Where To Buy
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-table [dataSource]="filterProductPriceByProductId(this.productID.value)" class="mat-elevation-z8">
+          <!-- <a href="#" class="clear-all" id="price-clear-all">Clear All</a> -->
+
+          <ng-container matColumnDef="storeName">
+            <mat-header-cell *matHeaderCellDef>Store Name</mat-header-cell>
+            <mat-cell *matCellDef="let element" style="justify-content: right;">
+              {{ element.storeName }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef>Listed Price</mat-header-cell>
+            <mat-cell *matCellDef="let element" style="justify-content: right;">
+              $ {{ element.price }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="websiteURL">
+            <mat-header-cell *matHeaderCellDef>Website</mat-header-cell>
+            <mat-cell *matCellDef="let element" style="justify-content: right;">
+              <a href="{{element.websiteURL}}" target="_blank">
+                Click Here
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+            <mat-cell *matCellDef="let element" style="justify-content: right;">
+              {{ element.email }}
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<span class="help is-danger">{{ errors }}</span>
+<div class="field">
+  <div class="control">
+    <input class="input" #userName (keydown)="errors = ''">
+  </div>
+</div>
+<button type="button" class="button is-primary" [class.is-loading]="isLoading" (click)="addUser(userName.value)">Add
+  User</button>
+
+<!--Create new user-->
+
+<div class="translucent-form-overlay align-center">
+  <h5>
+    Create New User
+  </h5>
+</div>
+<mat-accordion [formGroup]="addUser">
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+
+    <input type="text" class="form-control" required matInput placeholder="Eg. Jhon" formControlName="firstName"
+      name="firstName" #spy minlength="6" maxlength="100">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>Add First Name</mat-hint>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Last Name</mat-label>
+
+    <input type="text" class="form-control" required matInput placeholder="Eg. Perry" formControlName="lastName"
+      name="lastName" #spy minlength="6" maxlength="100">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>Add Last Name</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Choose Role</mat-label>
+    <mat-select placeholder="Select a role" formControlName="roleID">
+      <mat-option (click)="show()" [value]="role.roleID" name="roleID" *ngFor="let role of roles" #spy>
+        {{ role.roleName }}
+      </mat-option>
+    </mat-select>
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>Assign a role to the user</mat-hint>
+  </mat-form-field>
+  <mat-form-field>
+      <mat-label>Email</mat-label>
+  
+      <input type="text" class="form-control" required matInput placeholder="Eg. example@chromaonline.com" formControlName="email"
+        name="email" #spy minlength="6" maxlength="100">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-hint>Add Email</mat-hint>
+    </mat-form-field>
+
+  <div class="row columns">
+    <label>
+      Mobile
+
+      <input name="mobile" type="text" placeholder="12345678" id="mobile" class="addUser" aria-describedby="hintMobile"
+        aria-errormessage="error1" required pattern="mobile">
+      <span class="form-error">
+        Please write down your mobile number, it's required.
+      </span>
+    </label>
+    <p class="help-text" id="hintMobile">Write your mobile number</p>
+  </div>
+
+  <div class="row columns">
+    <label>
+      Password
+
+      <input type="password" name="password" placeholder="Password" class="addUser" aria-describedby="hintPassword"
+        aria-errormessage="error2" required pattern="four">
+      <span class="form-error">
+        Please write down your password, it's required.
+      </span>
+    </label>
+  </div>
+
+  <div class="row columns">
+    <label>
+      Re-enter Password
+
+      <input type="password" name="reenter_password" placeholder="Re-enter Password" class="addUser"
+        data-equalto="password" aria-describedby="hintRePassword" aria-errormessage="error2" required pattern="four">
+      <span class="form-error">
+        Password have to match.
+      </span>
+    </label>
+    <p class="help-text" id="hintRePassword">Make sure you write the same password</p>
+  </div>
+
+  <button type="submit" class="button expanded">Create New User</button>
+
+  <p class="text-center terms" id="display">
+    By creating an account you agree to our
+    Terms of Service and Privacy Policy
+  </p>
+
+</mat-accordion>
